@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <name th:text="${course.id == null} ? 'Novo Curso' : 'Editar Curso'">Curso</name>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<header>
+    <h1 th:text="${course.id == null} ? 'Novo Curso' : 'Editar Curso'"></h1>
+    <a th:href="@{/courses}">Voltar</a> |
+    <a th:href="@{/logout}">Sair</a>
+</header>
+
+<form th:action="@{${course.id == null} ? '/courses/save' : '/courses/update'}" th:object="${course}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div>
+        <label for="name">Título:</label>
+        <input type="text" id="name" th:field="*{name}" required/>
+    </div>
+    <div>
+        <label for="description">Descrição:</label>
+        <textarea id="description" th:field="*{description}" required></textarea>
+    </div>
+    <div>
+        <label for="price">Preço:</label>
+        <input type="number" id="price" th:field="*{price}" min="0" required/>
+    </div>
+
+    <button type="submit" th:text="${course.id == null} ? 'Criar' : 'Atualizar'"></button>
+</form>
+
+</body>
+</html>
